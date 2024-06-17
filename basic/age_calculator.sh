@@ -23,10 +23,10 @@ calculator() {
     
     age=$((current_year-year))
     
-    if [[ $current_month -lt $month ]]; then
+    if [ $current_month -lt $month ]; then
         ((age--))
-    elif [[ $current_month -eq $month ]]; then
-        if [[ $current_day -lt $day ]]; then
+    elif [ $current_month -eq $month ]; then
+        if [ $current_day -lt $day ]; then
             (($age--))
         fi
     fi

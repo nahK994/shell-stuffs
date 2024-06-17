@@ -60,12 +60,12 @@ welcome
 echo -n "Choose option: "
 read option
 
-if [[ $option -eq 1 ]]; then
+if [ $option -eq 1 ]; then
     print_factorial
-elif [[ $option -eq 2 ]]; then
+elif [ $option -eq 2 ]; then
     print_table
-elif [[ $option -eq 3 ]]; then
+elif [ $option -eq 3 ]; then
     print_series_summation
-elif [[ $option -eq 4 ]]; then
+elif [ $option -eq 4 ]; then
     print_list_summation
 fi
