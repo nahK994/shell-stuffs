@@ -31,7 +31,7 @@ merge() {
 }
 
 sort() {
-    declare -a arr=$1
+    local -n arr=$1
     if [ ${#arr[@]} -eq 1 ]; then
         echo "AHHAHAHAHAHAH -> ${arr[@]} (${#arr[@]}) <- AHAHHAHAHAHAHAH"
         echo "${arr[@]}"
@@ -39,12 +39,19 @@ sort() {
     fi
     
     local mid_index
+    local i=0
     ((mid_index=${#arr[@]}/2))
-    local arr2=${arr[@]:0:mid_index}
-    
-    # local arr_length=${#arr[@]}
-    # local ln=$((arr_length-mid_index))
-    local arr3=${arr[@]:mid_index}
+    local arr2=()
+    while [ $i -lt $mid_index ]; do
+        arr2+=(${arr[i]})
+        ((i++))
+    done
+
+    local arr3=()
+    while [ $i -lt ${#arr[@]} ]; do
+        arr3+=(${arr[i]})
+        ((i++))
+    done
     
     arr2=($(sort arr2))
     arr3=($(sort arr3))
@@ -63,5 +70,5 @@ sort() {
 # echo "${arr3[@]}"
 # echo "${arr3[@]}"
 arr=(5 4 3 2 1)
-sorted_arr=($(sort ${arr[@]}))
+sorted_arr=($(sort arr))
 echo "${sorted_arr[@]}"
