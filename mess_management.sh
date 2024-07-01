@@ -1,5 +1,10 @@
 #!/bin/bash
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
 cost_per_person() {
     cost=$1
     echo $(echo "scale=3; $cost / $total_member" | bc)
@@ -17,7 +22,7 @@ print_cost() {
     local meal=$3
     local bazar=$4
 
-    echo -e "\n================= " ${name} " =================\n"
+    echo -e "\n\n${YELLOW}=================${NC} ${GREEN} ${name} ${NC} ${YELLOW}=================${NC}"
     echo -e "Rent =" $rent
     echo -e "Bazar =" $bazar
     echo -e "Meal =" $meal
@@ -26,8 +31,8 @@ print_cost() {
     meal_balance=$(echo "scale=3; $meal_cost - $bazar" | bc)
     echo -e "Meal balance (Meal cost - Bazar) =" $meal_balance
     echo -e "------------------------------------------"
-    echo -e "Total =" $(echo "scale=3; $meal_balance+$rent+$total_utility_cost" | bc)
-    echo -e "============================================"
+    echo -e "${RED}TOTAL (Rent + Meal + Bazar + Meal_balance) =" $(echo "scale=3; $meal_balance+$rent+$total_utility_cost" | bc) "${NC}"
+    echo -e "${YELLOW}============================================${NC}"
 }
 
 echo -n "Electricity bill = "
@@ -69,7 +74,7 @@ echo -e "Khala bill =" $(cost_per_person $khala_bill)
 echo -e "Internet bill =" $(cost_per_person $net_bill)
 echo -e "------------------------------------------"
 total_utility_cost=$(cost_per_person $((khala_bill+net_bill+electricity_bill)))
-echo -e "Total =" $total_utility_cost
+echo -e "TOTAL =" $total_utility_cost
 echo -e "============================================"
 
 echo -e "\n"
