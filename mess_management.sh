@@ -27,11 +27,11 @@ print_cost() {
     echo -e "Bazar =" $bazar
     echo -e "Meal =" $meal
     meal_cost=$(echo "scale=3; $meal * $meal_rate" | bc)
-    echo -e "Meal cost (Meal x meal_rate) =" $meal_cost
+    echo -e "Meal cost (Meal x Meal_RATE) =" $meal_cost
     meal_balance=$(echo "scale=3; $meal_cost - $bazar" | bc)
     echo -e "Meal balance (Meal cost - Bazar) =" $meal_balance
     echo -e "------------------------------------------"
-    echo -e "${RED}TOTAL (Rent + Meal + Bazar + Meal_balance) =" $(echo "scale=3; $meal_balance+$rent+$total_utility_cost" | bc) "${NC}"
+    echo -e "TOTAL (Rent + Meal + Bazar + Meal balance + Utility cost) =${RED}" $(echo "scale=3; $meal_balance+$rent+$per_person_utility_cost" | bc) "${NC}"
     echo -e "${YELLOW}============================================${NC}"
 }
 
@@ -68,13 +68,13 @@ khala_bill=$((700*total_member))
 
 
 
-echo -e "=========  Per person utility cost  ========="
+echo -e "=========  Utility cost (Per person)  ========="
 echo -e "Electricity bill =" $(cost_per_person $electricity_bill)
 echo -e "Khala bill =" $(cost_per_person $khala_bill)
 echo -e "Internet bill =" $(cost_per_person $net_bill)
 echo -e "------------------------------------------"
-total_utility_cost=$(cost_per_person $((khala_bill+net_bill+electricity_bill)))
-echo -e "TOTAL =" $total_utility_cost
+per_person_utility_cost=$(cost_per_person $((khala_bill+net_bill+electricity_bill)))
+echo -e "TOTAL =" $per_person_utility_cost
 echo -e "============================================"
 
 echo -e "\n"
