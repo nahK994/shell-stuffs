@@ -37,11 +37,9 @@ print_cost() {
 
 echo -n "Electricity bill = "
 read electricity_bill
-echo -e "\n"
 
 echo -n "Gas bill = "
 read gas_bill
-echo -e "\n"
 
 echo -n "Others bill = "
 read others_bill
