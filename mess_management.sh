@@ -39,6 +39,14 @@ echo -n "Electricity bill = "
 read electricity_bill
 echo -e "\n"
 
+echo -n "Gas bill = "
+read gas_bill
+echo -e "\n"
+
+echo -n "Others bill = "
+read others_bill
+echo -e "\n"
+
 total_member=3
 khan_rent=5600
 raj_rent=3025
@@ -67,13 +75,14 @@ net_bill=1000
 khala_bill=$((700*total_member))
 
 
-
 echo -e "=========  Utility cost (Per person)  ========="
 echo -e "Electricity bill =" $(cost_per_person $electricity_bill)
+echo -e "Gas bill =" $(cost_per_person $gas_bill)
 echo -e "Khala bill =" $(cost_per_person $khala_bill)
 echo -e "Internet bill =" $(cost_per_person $net_bill)
+echo -e "Others cost =" $(cost_per_person $others_bill)
 echo -e "------------------------------------------"
-per_person_utility_cost=$(cost_per_person $((khala_bill+net_bill+electricity_bill)))
+per_person_utility_cost=$(cost_per_person $((khala_bill+net_bill+electricity_bill+gas_bill+others_bill)))
 echo -e "TOTAL =" $per_person_utility_cost
 echo -e "============================================"
 
