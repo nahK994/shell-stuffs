@@ -175,12 +175,12 @@ fi
 echo -e "\n\n"
 
 while true; do
-    read -p "Want to install vscode? (y/N): " vscode
-    if [[ $vscode =~ ^[yY]$ ]]; then
-        sudo snap install --classic code
+    read -p "Want to install ibus? (y/N): " ibus
+    if [[ $ibus =~ ^[yY]$ ]]; then
+        sudo apt-get install ibus-avro
         break
-    elif [[ $vscode =~ ^[nN]$ ]]; then
-        echo "vscode installation skipped."
+    elif [[ $ibus =~ ^[nN]$ ]]; then
+        echo "ibus installation skipped."
         break
     else
         echo "Please enter 'y' or 'n'."
