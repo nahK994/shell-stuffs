@@ -9,6 +9,42 @@ sudo apt upgrade
 sudo apt-get upgrade
 
 while true; do
+    read -p "Want to install go? (y/N): " go
+    if [[ $go =~ ^[yY]$ ]]; then
+        cd ~/Downloads
+        wget -O go1.23.0.linux-amd64.tar.gz https://golang.org/dl/go1.23.0.linux-amd64.tar.gz
+        sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.0.linux-amd64.tar.gz
+        echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
+        source ~/.profile
+        cd ~/
+        break
+    elif [[ $go =~ ^[nN]$ ]]; then
+        echo "go installation skipped."
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+while true; do
+    read -p "Want to install google chrome? (y/N): " chrome
+    if [[ $chrome =~ ^[yY]$ ]]; then
+        cd ~/Downloads
+        wget -O google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
+        cd ~/
+        break
+    elif [[ $chrome =~ ^[nN]$ ]]; then
+        echo "google chome installation skipped."
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+while true; do
     read -p "Want to install VLC? (y/N): " vlc
     if [[ $vlc =~ ^[yY]$ ]]; then
         sudo snap install vlc
@@ -152,37 +188,6 @@ while true; do
 done
 echo -e "\n\n"
 
-while true; do
-    read -p "Want to install go? (y/N): " go
-    if [[ $go =~ ^[yY]$ ]]; then
-        cd ~/Downloads
-        wget -O go1.23.0.linux-amd64.tar.gz https://golang.org/dl/go1.23.0.linux-amd64.tar.gz
-        sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.0.linux-amd64.tar.gz
-        echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
-        source ~/.profile
-        cd ~/
-        break
-    elif [[ $go =~ ^[nN]$ ]]; then
-        echo "go installation skipped."
-        break
-    else
-        echo "Please enter 'y' or 'n'."
-    fi
-done
-# echo -e "\n\n"
-
-while true; do
-    read -p "Want to install google? (y/N): " google
-    if [[ $google =~ ^[yY]$ ]]; then
-        cd ~/Downloads
-        wget -O google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        cd ~/
-        break
-    elif [[ $google =~ ^[nN]$ ]]; then
-        echo "google chome installation skipped."
-        break
-    else
-        echo "Please enter 'y' or 'n'."
-    fi
-done
+echo -e "Upgrading apt and apt-get again\n\n"
+sudo apt upgrade
+sudo apt-get upgrade
