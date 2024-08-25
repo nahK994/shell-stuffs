@@ -1,6 +1,6 @@
 #!/bin/bash
 
-numberOfTasks=18
+numberOfTasks=19
 
 echo "(1/${numberOfTasks}) Updating apt and apt-get"
 sudo apt update -y
@@ -219,15 +219,48 @@ sudo apt upgrade -y
 sudo apt-get upgrade -y
 echo -e "\n\n"
 
-echo "(17/${numberOfTasks}) Initiating .bash_aliases"
-touch ~/.bash_aliases
-echo "alias open='xdg-open'" >> ~/.bash_aliases
-echo "alias google='google-chrome-stable'" >> ~/.bash_aliases
-# source ~/.bashrc
+while true; do
+    read -p "(17/${numberOfTasks}) Want to create .bash_aliases? (y/N): " bash_aliases
+    if [[ $bash_aliases =~ ^[yY]$ ]]; then
+        touch ~/.bash_aliases
+        echo "alias open='xdg-open'" >> ~/.bash_aliases
+        echo "alias google='google-chrome-stable'" >> ~/.bash_aliases
+        # source ~/.bashrc
+        break
+    elif [[ $bash_aliases =~ ^[nN]$ ]]; then
+        echo "Creating .bash_aliases skipped"
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
 echo -e "\n\n"
 
 while true; do
-    read -p "(18/${numberOfTasks}) Want to REBOOT? (y/N): " pip
+    read -p "(18/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
+    if [[ $parse_git_branch =~ ^[yY]$ ]]; then
+        echo "(18/${numberOfTasks}) Want to parse git branch in command prompt?"
+        git_branch_function='
+        # Function to get the current Git branch
+        function parse_git_branch() {
+            git branch 2>/dev/null | grep "^\*" | colrm 1 2
+        }'
+
+        ps1_modification='export PS1="\[\e[1;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \[\e[1;33m\](\$(parse_git_branch))\[\033[00m\]\$ "'
+        echo "$git_branch_function" >> ~/.bashrc
+        echo "$ps1_modification" >> ~/.bashrc
+        break
+    elif [[ $parse_git_branch =~ ^[nN]$ ]]; then
+        echo "Parsing git branch skipped"
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+while true; do
+    read -p "(19/${numberOfTasks}) Want to REBOOT? (y/N): " pip
     if [[ $pip =~ ^[yY]$ ]]; then
         reboot
         break
