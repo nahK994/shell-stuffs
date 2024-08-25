@@ -1,12 +1,14 @@
 #!/bin/bash
 
-echo -e "Updating apt and apt-get\n\n"
+echo "Updating apt and apt-get"
 sudo apt update -y
 sudo apt-get update -y
+echo -e "\n\n"
 
-echo -e "Upgrading apt and apt-get\n\n"
+echo "Upgrading apt and apt-get"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
+echo -e "\n\n"
 
 while true; do
     read -p "Want to install go? (y/N): " go
@@ -101,6 +103,20 @@ done
 echo -e "\n\n"
 
 while true; do
+    read -p "Want to install vscode? (y/N): " vscode
+    if [[ $vscode =~ ^[yY]$ ]]; then
+        sudo snap install --classic code
+        break
+    elif [[ $vscode =~ ^[nN]$ ]]; then
+        echo "vscode installation skipped."
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+while true; do
     read -p "Want to install nvm? (y/N): " nvm
     if [[ $nvm =~ ^[yY]$ ]]; then
         sudo apt install curl -y
@@ -147,7 +163,8 @@ while true; do
 
         sudo groupadd docker
         sudo usermod -aG docker $USER
-        newgrp docker
+        # newgrp docker
+        echo "Docker installation complete. Please reboot to apply group changes."
         break
     elif [[ $docker =~ ^[nN]$ ]]; then
         echo "docker installation skipped."
@@ -188,6 +205,14 @@ while true; do
 done
 echo -e "\n\n"
 
-echo -e "Upgrading apt and apt-get again\n\n"
+echo "Updating apt and apt-get again"
+sudo apt update -y
+sudo apt-get update -y
+echo -e "\n\n"
+
+echo "Upgrading apt and apt-get again"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
+echo -e "\n\n"
+
+echo "All packages installed. Please REBOOT to apply all changes"
