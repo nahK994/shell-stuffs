@@ -1,12 +1,12 @@
 #!/bin/bash
 
 echo -e "Updating apt and apt-get\n\n"
-sudo apt update
-sudo apt-get update
+sudo apt update -y
+sudo apt-get update -y
 
 echo -e "Upgrading apt and apt-get\n\n"
-sudo apt upgrade
-sudo apt-get upgrade
+sudo apt upgrade -y
+sudo apt-get upgrade -y
 
 while true; do
     read -p "Want to install go? (y/N): " go
@@ -103,7 +103,7 @@ echo -e "\n\n"
 while true; do
     read -p "Want to install nvm? (y/N): " nvm
     if [[ $nvm =~ ^[yY]$ ]]; then
-        sudo apt install curl
+        sudo apt install curl -y
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
         break
     elif [[ $nvm =~ ^[nN]$ ]]; then
@@ -118,7 +118,7 @@ echo -e "\n\n"
 while true; do
     read -p "Want to install git? (y/N): " git
     if [[ $git =~ ^[yY]$ ]]; then
-        sudo apt install git
+        sudo apt install git -y
         break
     elif [[ $git =~ ^[nN]$ ]]; then
         echo "git installation skipped."
@@ -132,8 +132,8 @@ echo -e "\n\n"
 while true; do
     read -p "Want to install docker? (y/N): " docker
     if [[ $docker =~ ^[yY]$ ]]; then
-        sudo apt-get update
-        sudo apt-get install ca-certificates curl
+        sudo apt-get update -y
+        sudo apt-get install ca-certificates curl -y
         sudo install -m 0755 -d /etc/apt/keyrings
         sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
         sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -142,8 +142,8 @@ while true; do
             "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
             $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
         sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-        sudo apt-get update
-        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        sudo apt-get update -y
+        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
         sudo groupadd docker
         sudo usermod -aG docker $USER
@@ -162,7 +162,7 @@ if ! command -v pip3 &> /dev/null; then
     while true; do
         read -p "Want to install pip? (y/N): " pip
         if [[ $pip =~ ^[yY]$ ]]; then
-            sudo apt install python3-pip
+            sudo apt install python3-pip -y
             break
         elif [[ $pip =~ ^[nN]$ ]]; then
             echo "pip3 installation skipped."
@@ -177,7 +177,7 @@ echo -e "\n\n"
 while true; do
     read -p "Want to install ibus? (y/N): " ibus
     if [[ $ibus =~ ^[yY]$ ]]; then
-        sudo apt-get install ibus-avro
+        sudo apt-get install ibus-avro -y
         break
     elif [[ $ibus =~ ^[nN]$ ]]; then
         echo "ibus installation skipped."
@@ -189,5 +189,5 @@ done
 echo -e "\n\n"
 
 echo -e "Upgrading apt and apt-get again\n\n"
-sudo apt upgrade
-sudo apt-get upgrade
+sudo apt upgrade -y
+sudo apt-get upgrade -y
