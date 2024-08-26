@@ -195,12 +195,15 @@ while true; do
     if [[ $python =~ ^[yY]$ ]]; then
         sudo apt install software-properties-common -y
         sudo add-apt-repository ppa:deadsnakes/ppa -y
-        sudo apt update
-        sudo apt install python3.12
+        sudo apt update -y
+        sudo apt install python3.12 -y
         echo "export PATH=$PATH:/usr/bin/python3.12" >> ~/.profile
         source ~/.profile
-        curl -sS https://bootstrap.pypa.io/get-pip.py | python3.12
 
+        pip_location=/home/$USER/.local/bin
+        echo "export PATH=$PATH:$pip_location" >> ~/.profile
+        source ~/.profile
+        curl -sS https://bootstrap.pypa.io/get-pip.py | python3.12
         if [ ! -f ~/.bash_aliases ]; then
             touch ~/.bash_aliases
         fi
