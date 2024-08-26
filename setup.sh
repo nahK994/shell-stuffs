@@ -1,6 +1,6 @@
 #!/bin/bash
 
-numberOfTasks=19
+numberOfTasks=20
 
 echo "(1/${numberOfTasks}) Updating apt and apt-get"
 sudo apt update -y
@@ -209,18 +209,33 @@ while true; do
 done
 echo -e "\n\n"
 
-echo "(15/${numberOfTasks}) Updating apt and apt-get again"
+while true; do
+    read -p "(15/${numberOfTasks}) Want to install command line json parser? (y/N): " json
+    if [[ $json =~ ^[yY]$ ]]; then
+        sudo apt-get install jq -y
+        echo "alias json='jq'" >> ~/.bash_aliases
+        break
+    elif [[ $json =~ ^[nN]$ ]]; then
+        echo "Installing command line json parser skipped"
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+echo "(16/${numberOfTasks}) Updating apt and apt-get again"
 sudo apt update -y
 sudo apt-get update -y
 echo -e "\n\n"
 
-echo "(16/${numberOfTasks}) Upgrading apt and apt-get again"
+echo "(17/${numberOfTasks}) Upgrading apt and apt-get again"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
 echo -e "\n\n"
 
 while true; do
-    read -p "(17/${numberOfTasks}) Want to create .bash_aliases? (y/N): " bash_aliases
+    read -p "(18/${numberOfTasks}) Want to create .bash_aliases? (y/N): " bash_aliases
     if [[ $bash_aliases =~ ^[yY]$ ]]; then
         touch ~/.bash_aliases
         echo "alias open='xdg-open'" >> ~/.bash_aliases
@@ -237,7 +252,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(18/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
+    read -p "(19/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
     if [[ $parse_git_branch =~ ^[yY]$ ]]; then
         echo "(18/${numberOfTasks}) Want to parse git branch in command prompt?"
         git_branch_parser='
@@ -262,7 +277,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(19/${numberOfTasks}) Want to REBOOT? (y/N): " pip
+    read -p "(20/${numberOfTasks}) Want to REBOOT? (y/N): " pip
     if [[ $pip =~ ^[yY]$ ]]; then
         reboot
         break
