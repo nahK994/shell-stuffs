@@ -240,15 +240,17 @@ while true; do
     read -p "(18/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
     if [[ $parse_git_branch =~ ^[yY]$ ]]; then
         echo "(18/${numberOfTasks}) Want to parse git branch in command prompt?"
-        git_branch_function='
-        # Function to get the current Git branch
-        function parse_git_branch() {
-            git branch 2>/dev/null | grep "^\*" | colrm 1 2
-        }'
-
-        ps1_modification='export PS1="\[\e[1;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \[\e[1;33m\](\$(parse_git_branch))\[\033[00m\]\$ "'
-        echo "$git_branch_function" >> ~/.bashrc
-        echo "$ps1_modification" >> ~/.bashrc
+        git_branch_parser='
+# Function to get the current Git branch
+function parse_git_branch() {
+    output=$(git branch 2>/dev/null | grep "^\*" | colrm 1 2)
+    if [ -n "$output" ]; then
+        echo " (${output})"
+    fi
+}
+export PS1="\[\e[1;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\e[1;33m\]\$(parse_git_branch)\[\033[00m\]\$ "
+'
+        echo "$git_branch_parser" >> ~/.bashrc
         break
     elif [[ $parse_git_branch =~ ^[nN]$ ]]; then
         echo "Parsing git branch skipped"
