@@ -248,7 +248,7 @@ function parse_git_branch() {
         echo " (${output})"
     fi
 }
-export PS1="\[\e[1;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\e[1;33m\]\$(parse_git_branch)\[\033[00m\]\$ "
+export PS1="\[\e[1;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\e[1;35m\]\$(parse_git_branch)\[\033[00m\]\$ "
 '
         echo "$git_branch_parser" >> ~/.bashrc
         break
