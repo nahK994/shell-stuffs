@@ -227,6 +227,9 @@ while true; do
     read -p "(16/${numberOfTasks}) Want to install command line json parser? (y/N): " json
     if [[ $json =~ ^[yY]$ ]]; then
         sudo apt-get install jq -y
+        if [ ! -f ~/.bash_aliases ]; then
+            touch ~/.bash_aliases
+        fi
         echo "alias json='jq'" >> ~/.bash_aliases
         break
     elif [[ $json =~ ^[nN]$ ]]; then
