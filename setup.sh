@@ -1,6 +1,6 @@
 #!/bin/bash
 
-numberOfTasks=22
+numberOfTasks=23
 
 echo "(1/${numberOfTasks}) Updating apt and apt-get"
 sudo apt update -y
@@ -180,7 +180,6 @@ while true; do
         sudo groupadd docker
         sudo usermod -aG docker $USER
         # newgrp docker
-        echo "Docker installation complete. Please reboot to apply group changes."
         break
     elif [[ $docker =~ ^[nN]$ ]]; then
         echo "docker installation skipped."
@@ -191,9 +190,34 @@ while true; do
 done
 echo -e "\n\n"
 
+while true; do
+    read -p "(14/${numberOfTasks}) Want to install python3.12 and pip3 (python3.12)? (y/N): " python
+    if [[ $python =~ ^[yY]$ ]]; then
+        sudo apt install software-properties-common -y
+        sudo add-apt-repository ppa:deadsnakes/ppa -y
+        sudo apt update
+        sudo apt install python3.12
+        echo "export PATH=$PATH:/usr/bin/python3.12" >> ~/.profile
+        source ~/.profile
+        curl -sS https://bootstrap.pypa.io/get-pip.py | python3.12
+
+        if [ ! -f ~/.bash_aliases ]; then
+            touch ~/.bash_aliases
+        fi
+        echo "alias python3='python3.12'" >> ~/.bash_aliases
+        break
+    elif [[ $python =~ ^[nN]$ ]]; then
+        echo "docker installation skipped."
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
 if ! command -v pip3 &> /dev/null; then
     while true; do
-        read -p "(14/${numberOfTasks}) Want to install pip? (y/N): " pip
+        read -p "(15/${numberOfTasks}) Want to install pip? (y/N): " pip
         if [[ $pip =~ ^[yY]$ ]]; then
             sudo apt install python3-pip -y
             break
@@ -205,12 +229,12 @@ if ! command -v pip3 &> /dev/null; then
         fi
     done
 else
-    echo "(14/${numberOfTasks}) Skipping the installation of pip as it has already been installed."
+    echo "(15/${numberOfTasks}) Skipping the installation of pip as it has already been installed."
 fi
 echo -e "\n\n"
 
 while true; do
-    read -p "(15/${numberOfTasks}) Want to install ibus? (y/N): " ibus
+    read -p "(16/${numberOfTasks}) Want to install ibus? (y/N): " ibus
     if [[ $ibus =~ ^[yY]$ ]]; then
         sudo apt-get install ibus-avro -y
         break
@@ -224,7 +248,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(16/${numberOfTasks}) Want to install command line json parser? (y/N): " json
+    read -p "(17/${numberOfTasks}) Want to install command line json parser? (y/N): " json
     if [[ $json =~ ^[yY]$ ]]; then
         sudo apt-get install jq -y
         if [ ! -f ~/.bash_aliases ]; then
@@ -242,7 +266,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(17/${numberOfTasks}) Want to add aliases for build-in commands? (y/N): " bash_aliases
+    read -p "(18/${numberOfTasks}) Want to add aliases for build-in commands? (y/N): " bash_aliases
     if [[ $bash_aliases =~ ^[yY]$ ]]; then
         if [ ! -f ~/.bash_aliases ]; then
             touch ~/.bash_aliases
@@ -261,7 +285,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(18/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
+    read -p "(19/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
     if [[ $parse_git_branch =~ ^[yY]$ ]]; then
         echo "(18/${numberOfTasks}) Want to parse git branch in command prompt?"
         git_branch_parser='
@@ -286,7 +310,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(19/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
+    read -p "(20/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
     if [[ $build_essential =~ ^[yY]$ ]]; then
         sudo apt-get install build-essential
         break
@@ -299,18 +323,18 @@ while true; do
 done
 echo -e "\n\n"
 
-echo "(20/${numberOfTasks}) Updating apt and apt-get again"
+echo "(21/${numberOfTasks}) Updating apt and apt-get again"
 sudo apt update -y
 sudo apt-get update -y
 echo -e "\n\n"
 
-echo "(21/${numberOfTasks}) Upgrading apt and apt-get again"
+echo "(22/${numberOfTasks}) Upgrading apt and apt-get again"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
 echo -e "\n\n"
 
 while true; do
-    read -p "(22/${numberOfTasks}) Want to REBOOT? (y/N): " pip
+    read -p "(23/${numberOfTasks}) Want to REBOOT? (y/N): " pip
     if [[ $pip =~ ^[yY]$ ]]; then
         reboot
         break
