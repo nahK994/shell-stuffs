@@ -218,7 +218,7 @@ while true; do
 done
 echo -e "\n\n"
 
-if ! command -v pip3 &> /dev/null; then
+if ! which pip > /dev/null; then
     while true; do
         read -p "(15/${numberOfTasks}) Want to install pip? (y/N): " pip
         if [[ $pip =~ ^[yY]$ ]]; then
