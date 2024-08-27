@@ -1,6 +1,6 @@
 #!/bin/bash
 
-numberOfTasks=23
+numberOfTasks=24
 
 echo "(1/${numberOfTasks}) Updating apt and apt-get"
 sudo apt update -y
@@ -48,8 +48,16 @@ while true; do
 done
 echo -e "\n\n"
 
+if ! which snap > /dev/null; then
+    echo "(5/${numberOfTasks}) installing snap"
+    sudo apt install snapd
+else
+    echo "(5/${numberOfTasks}) Skipping the installation of snap as it has already been installed."
+fi
+echo -e "\n\n"
+
 while true; do
-    read -p "(5/${numberOfTasks}) Want to install VLC? (y/N): " vlc
+    read -p "(6/${numberOfTasks}) Want to install VLC? (y/N): " vlc
     if [[ $vlc =~ ^[yY]$ ]]; then
         sudo snap install vlc
         break
@@ -63,7 +71,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(6/${numberOfTasks}) Want to install htop? (y/N): " htop
+    read -p "(7/${numberOfTasks}) Want to install htop? (y/N): " htop
     if [[ $htop =~ ^[yY]$ ]]; then
         sudo snap install htop
         break
@@ -77,7 +85,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(7/${numberOfTasks}) Want to install tree? (y/N): " tree
+    read -p "(8/${numberOfTasks}) Want to install tree? (y/N): " tree
     if [[ $tree =~ ^[yY]$ ]]; then
         sudo snap install tree
         break
@@ -91,7 +99,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(8/${numberOfTasks}) Want to install postman? (y/N): " postman
+    read -p "(9/${numberOfTasks}) Want to install postman? (y/N): " postman
     if [[ $postman =~ ^[yY]$ ]]; then
         sudo snap install postman
         break
@@ -105,7 +113,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(9/${numberOfTasks}) Want to install vscode? (y/N): " vscode
+    read -p "(10/${numberOfTasks}) Want to install vscode? (y/N): " vscode
     if [[ $vscode =~ ^[yY]$ ]]; then
         sudo snap install --classic code
         break
@@ -119,7 +127,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(9/${numberOfTasks}) Want to install pycharm-community? (y/N): " pycharm
+    read -p "(11/${numberOfTasks}) Want to install pycharm-community? (y/N): " pycharm
     if [[ $pycharm =~ ^[yY]$ ]]; then
         sudo snap install pycharm-community --classic
         break
@@ -133,7 +141,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(11/${numberOfTasks}) Want to install nvm? (y/N): " nvm
+    read -p "(12/${numberOfTasks}) Want to install nvm? (y/N): " nvm
     if [[ $nvm =~ ^[yY]$ ]]; then
         sudo apt install curl -y
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -148,7 +156,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(12/${numberOfTasks}) Want to install git? (y/N): " git
+    read -p "(13/${numberOfTasks}) Want to install git? (y/N): " git
     if [[ $git =~ ^[yY]$ ]]; then
         sudo apt install git -y
         break
@@ -162,7 +170,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(13/${numberOfTasks}) Want to install docker? (y/N): " docker
+    read -p "(14/${numberOfTasks}) Want to install docker? (y/N): " docker
     if [[ $docker =~ ^[yY]$ ]]; then
         sudo apt-get update -y
         sudo apt-get install ca-certificates curl -y
@@ -191,7 +199,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(14/${numberOfTasks}) Want to install python3.12 and pip3 (python3.12)? (y/N): " python
+    read -p "(15/${numberOfTasks}) Want to install python3.12 and pip3 (python3.12)? (y/N): " python
     if [[ $python =~ ^[yY]$ ]]; then
         sudo apt install software-properties-common -y
         sudo add-apt-repository ppa:deadsnakes/ppa -y
@@ -220,7 +228,7 @@ echo -e "\n\n"
 
 if ! which pip > /dev/null; then
     while true; do
-        read -p "(15/${numberOfTasks}) Want to install pip? (y/N): " pip
+        read -p "(16/${numberOfTasks}) Want to install pip? (y/N): " pip
         if [[ $pip =~ ^[yY]$ ]]; then
             sudo apt install python3-pip -y
             break
@@ -232,12 +240,12 @@ if ! which pip > /dev/null; then
         fi
     done
 else
-    echo "(15/${numberOfTasks}) Skipping the installation of pip as it has already been installed."
+    echo "(16/${numberOfTasks}) Skipping the installation of pip as it has already been installed."
 fi
 echo -e "\n\n"
 
 while true; do
-    read -p "(16/${numberOfTasks}) Want to install ibus? (y/N): " ibus
+    read -p "(17/${numberOfTasks}) Want to install ibus? (y/N): " ibus
     if [[ $ibus =~ ^[yY]$ ]]; then
         sudo apt-get install ibus-avro -y
         break
@@ -251,7 +259,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(17/${numberOfTasks}) Want to install command line json parser? (y/N): " json
+    read -p "(18/${numberOfTasks}) Want to install command line json parser? (y/N): " json
     if [[ $json =~ ^[yY]$ ]]; then
         sudo apt-get install jq -y
         if [ ! -f ~/.bash_aliases ]; then
@@ -269,7 +277,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(18/${numberOfTasks}) Want to add aliases for build-in commands? (y/N): " bash_aliases
+    read -p "(19/${numberOfTasks}) Want to add aliases for build-in commands? (y/N): " bash_aliases
     if [[ $bash_aliases =~ ^[yY]$ ]]; then
         if [ ! -f ~/.bash_aliases ]; then
             touch ~/.bash_aliases
@@ -288,7 +296,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(19/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
+    read -p "(20/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
     if [[ $parse_git_branch =~ ^[yY]$ ]]; then
         echo "(18/${numberOfTasks}) Want to parse git branch in command prompt?"
         git_branch_parser='
@@ -313,7 +321,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(20/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
+    read -p "(21/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
     if [[ $build_essential =~ ^[yY]$ ]]; then
         sudo apt-get install build-essential
         break
@@ -326,18 +334,18 @@ while true; do
 done
 echo -e "\n\n"
 
-echo "(21/${numberOfTasks}) Updating apt and apt-get again"
+echo "(22/${numberOfTasks}) Updating apt and apt-get again"
 sudo apt update -y
 sudo apt-get update -y
 echo -e "\n\n"
 
-echo "(22/${numberOfTasks}) Upgrading apt and apt-get again"
+echo "(23/${numberOfTasks}) Upgrading apt and apt-get again"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
 echo -e "\n\n"
 
 while true; do
-    read -p "(23/${numberOfTasks}) Want to REBOOT? (y/N): " pip
+    read -p "(24/${numberOfTasks}) Want to REBOOT? (y/N): " pip
     if [[ $pip =~ ^[yY]$ ]]; then
         reboot
         break
