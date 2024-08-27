@@ -50,7 +50,7 @@ echo -e "\n\n"
 
 if ! which snap > /dev/null; then
     echo "(5/${numberOfTasks}) installing snap"
-    sudo apt install snapd
+    sudo apt install snapd -y
 else
     echo "(5/${numberOfTasks}) Skipping the installation of snap as it has already been installed."
 fi
