@@ -159,6 +159,8 @@ while true; do
     read -p "(13/${numberOfTasks}) Want to install git? (y/N): " git
     if [[ $git =~ ^[yY]$ ]]; then
         sudo apt install git -y
+        git config --global user.name nahK994
+        git config --global user.email nkskl6@gmail.com
         break
     elif [[ $git =~ ^[nN]$ ]]; then
         echo "git installation skipped."
