@@ -1,6 +1,6 @@
 #!/bin/bash
 
-numberOfTasks=24
+numberOfTasks=25
 
 echo "(1/${numberOfTasks}) Updating apt and apt-get"
 sudo apt update -y
@@ -141,7 +141,24 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(12/${numberOfTasks}) Want to install nvm? (y/N): " nvm
+    read -p "(12/${numberOfTasks}) Want to install redis? (y/N): " redis
+    if [[ $redis =~ ^[yY]$ ]]; then
+        sudo apt update
+        sudo apt install redis-tools # for redis-cli
+        sudo snap install redis
+        # https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-linux/
+        break
+    elif [[ $redis =~ ^[nN]$ ]]; then
+        echo "redis installation skipped."
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+while true; do
+    read -p "(13/${numberOfTasks}) Want to install nvm? (y/N): " nvm
     if [[ $nvm =~ ^[yY]$ ]]; then
         sudo apt install curl -y
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -156,7 +173,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(13/${numberOfTasks}) Want to install git? (y/N): " git
+    read -p "(14/${numberOfTasks}) Want to install git? (y/N): " git
     if [[ $git =~ ^[yY]$ ]]; then
         sudo apt install git -y
         git config --global user.name nahK994
@@ -172,7 +189,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(14/${numberOfTasks}) Want to install docker? (y/N): " docker
+    read -p "(15/${numberOfTasks}) Want to install docker? (y/N): " docker
     if [[ $docker =~ ^[yY]$ ]]; then
         sudo apt-get update -y
         sudo apt-get install ca-certificates curl -y
@@ -201,7 +218,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(15/${numberOfTasks}) Want to install python3.12 and pip3 (python3.12)? (y/N): " python
+    read -p "(16/${numberOfTasks}) Want to install python3.12 and pip3 (python3.12)? (y/N): " python
     if [[ $python =~ ^[yY]$ ]]; then
         sudo apt install software-properties-common -y
         sudo add-apt-repository ppa:deadsnakes/ppa -y
@@ -230,7 +247,7 @@ echo -e "\n\n"
 
 if ! which pip > /dev/null; then
     while true; do
-        read -p "(16/${numberOfTasks}) Want to install pip? (y/N): " pip
+        read -p "(17/${numberOfTasks}) Want to install pip? (y/N): " pip
         if [[ $pip =~ ^[yY]$ ]]; then
             sudo apt install python3-pip -y
             break
@@ -242,12 +259,12 @@ if ! which pip > /dev/null; then
         fi
     done
 else
-    echo "(16/${numberOfTasks}) Skipping the installation of pip as it has already been installed."
+    echo "(17/${numberOfTasks}) Skipping the installation of pip as it has already been installed."
 fi
 echo -e "\n\n"
 
 while true; do
-    read -p "(17/${numberOfTasks}) Want to install ibus? (y/N): " ibus
+    read -p "(18/${numberOfTasks}) Want to install ibus? (y/N): " ibus
     if [[ $ibus =~ ^[yY]$ ]]; then
         sudo apt-get install ibus-avro -y
         break
@@ -261,7 +278,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(18/${numberOfTasks}) Want to install command line json parser? (y/N): " json
+    read -p "(19/${numberOfTasks}) Want to install command line json parser? (y/N): " json
     if [[ $json =~ ^[yY]$ ]]; then
         sudo apt-get install jq -y
         if [ ! -f ~/.bash_aliases ]; then
@@ -279,7 +296,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(19/${numberOfTasks}) Want to add aliases for build-in commands? (y/N): " bash_aliases
+    read -p "(20/${numberOfTasks}) Want to add aliases for build-in commands? (y/N): " bash_aliases
     if [[ $bash_aliases =~ ^[yY]$ ]]; then
         if [ ! -f ~/.bash_aliases ]; then
             touch ~/.bash_aliases
@@ -298,7 +315,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(20/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
+    read -p "(21/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
     if [[ $parse_git_branch =~ ^[yY]$ ]]; then
         echo "(18/${numberOfTasks}) Want to parse git branch in command prompt?"
         git_branch_parser='
@@ -323,7 +340,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(21/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
+    read -p "(22/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
     if [[ $build_essential =~ ^[yY]$ ]]; then
         sudo apt-get install build-essential
         break
@@ -336,18 +353,18 @@ while true; do
 done
 echo -e "\n\n"
 
-echo "(22/${numberOfTasks}) Updating apt and apt-get again"
+echo "(23/${numberOfTasks}) Updating apt and apt-get again"
 sudo apt update -y
 sudo apt-get update -y
 echo -e "\n\n"
 
-echo "(23/${numberOfTasks}) Upgrading apt and apt-get again"
+echo "(24/${numberOfTasks}) Upgrading apt and apt-get again"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
 echo -e "\n\n"
 
 while true; do
-    read -p "(24/${numberOfTasks}) Want to REBOOT? (y/N): " pip
+    read -p "(25/${numberOfTasks}) Want to REBOOT? (y/N): " pip
     if [[ $pip =~ ^[yY]$ ]]; then
         reboot
         break
