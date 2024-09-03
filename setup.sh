@@ -1,6 +1,6 @@
 #!/bin/bash
 
-numberOfTasks=25
+numberOfTasks=26
 
 echo "(1/${numberOfTasks}) Updating apt and apt-get"
 sudo apt update -y
@@ -340,7 +340,21 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(22/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
+    read -p "(22/${numberOfTasks}) Want to install make? (y/N): " make
+    if [[ $make =~ ^[yY]$ ]]; then
+        sudo apt-get install make -y
+        break
+    elif [[ $make =~ ^[nN]$ ]]; then
+        echo "Installing make skipped"
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+while true; do
+    read -p "(23/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
     if [[ $build_essential =~ ^[yY]$ ]]; then
         sudo apt-get install build-essential
         break
@@ -353,18 +367,18 @@ while true; do
 done
 echo -e "\n\n"
 
-echo "(23/${numberOfTasks}) Updating apt and apt-get again"
+echo "(24/${numberOfTasks}) Updating apt and apt-get again"
 sudo apt update -y
 sudo apt-get update -y
 echo -e "\n\n"
 
-echo "(24/${numberOfTasks}) Upgrading apt and apt-get again"
+echo "(25/${numberOfTasks}) Upgrading apt and apt-get again"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
 echo -e "\n\n"
 
 while true; do
-    read -p "(25/${numberOfTasks}) Want to REBOOT? (y/N): " pip
+    read -p "(26/${numberOfTasks}) Want to REBOOT? (y/N): " pip
     if [[ $pip =~ ^[yY]$ ]]; then
         reboot
         break
