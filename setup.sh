@@ -143,7 +143,7 @@ echo -e "\n\n"
 while true; do
     read -p "(12/${numberOfTasks}) Want to install redis? (y/N): " redis
     if [[ $redis =~ ^[yY]$ ]]; then
-        sudo apt update
+        sudo apt update -y
         sudo apt install redis-tools -y # for redis-cli
         sudo snap install redis
         # https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-linux/
