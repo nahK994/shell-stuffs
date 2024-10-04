@@ -1,6 +1,6 @@
 #!/bin/bash
 
-numberOfTasks=26
+numberOfTasks=27
 
 echo "(1/${numberOfTasks}) Updating apt and apt-get"
 sudo apt update -y
@@ -264,7 +264,21 @@ fi
 echo -e "\n\n"
 
 while true; do
-    read -p "(18/${numberOfTasks}) Want to install ibus? (y/N): " ibus
+    read -p "(18/${numberOfTasks}) Want to install virtualenv? (y/N): " virtualenv
+    if [[ $virtualenv =~ ^[yY]$ ]]; then
+        pip3 install virtualenv
+        break
+    elif [[ $virtualenv =~ ^[nN]$ ]]; then
+        echo "virtualenv installation skipped."
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+while true; do
+    read -p "(19/${numberOfTasks}) Want to install ibus? (y/N): " ibus
     if [[ $ibus =~ ^[yY]$ ]]; then
         sudo apt-get install ibus-avro -y
         break
@@ -278,7 +292,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(19/${numberOfTasks}) Want to install command line json parser? (y/N): " json
+    read -p "(20/${numberOfTasks}) Want to install command line json parser? (y/N): " json
     if [[ $json =~ ^[yY]$ ]]; then
         sudo apt-get install jq -y
         if [ ! -f ~/.bash_aliases ]; then
@@ -296,7 +310,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(20/${numberOfTasks}) Want to add aliases for build-in commands? (y/N): " bash_aliases
+    read -p "(21/${numberOfTasks}) Want to add aliases for build-in commands? (y/N): " bash_aliases
     if [[ $bash_aliases =~ ^[yY]$ ]]; then
         if [ ! -f ~/.bash_aliases ]; then
             touch ~/.bash_aliases
@@ -315,7 +329,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(21/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
+    read -p "(22/${numberOfTasks}) Want to parse git branch in command prompt? (y/N): " parse_git_branch
     if [[ $parse_git_branch =~ ^[yY]$ ]]; then
         echo "(18/${numberOfTasks}) Want to parse git branch in command prompt?"
         git_branch_parser='
@@ -340,7 +354,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(22/${numberOfTasks}) Want to install make? (y/N): " make
+    read -p "(23/${numberOfTasks}) Want to install make? (y/N): " make
     if [[ $make =~ ^[yY]$ ]]; then
         sudo apt-get install make -y
         break
@@ -354,7 +368,7 @@ done
 echo -e "\n\n"
 
 while true; do
-    read -p "(23/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
+    read -p "(24/${numberOfTasks}) Want to install build-essential? (y/N): " build_essential
     if [[ $build_essential =~ ^[yY]$ ]]; then
         sudo apt-get install build-essential
         break
@@ -367,18 +381,18 @@ while true; do
 done
 echo -e "\n\n"
 
-echo "(24/${numberOfTasks}) Updating apt and apt-get again"
+echo "(25/${numberOfTasks}) Updating apt and apt-get again"
 sudo apt update -y
 sudo apt-get update -y
 echo -e "\n\n"
 
-echo "(25/${numberOfTasks}) Upgrading apt and apt-get again"
+echo "(26/${numberOfTasks}) Upgrading apt and apt-get again"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
 echo -e "\n\n"
 
 while true; do
-    read -p "(26/${numberOfTasks}) Want to REBOOT? (y/N): " pip
+    read -p "(27/${numberOfTasks}) Want to REBOOT? (y/N): " pip
     if [[ $pip =~ ^[yY]$ ]]; then
         reboot
         break
