@@ -18,7 +18,7 @@ while true; do
         cd ~/Downloads
         wget -O go1.23.0.linux-amd64.tar.gz https://golang.org/dl/go1.23.0.linux-amd64.tar.gz
         sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.0.linux-amd64.tar.gz
-        echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
+        echo 'export PATH=$PATH:/usr/local/go/bin:/home/'"$USER"'/go/bin' >> ~/.profile
         source ~/.profile
         cd ~/
         break
