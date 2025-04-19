@@ -1,6 +1,6 @@
 #!/bin/bash
 
-numberOfTasks=27
+numberOfTasks=28
 
 echo "(1/${numberOfTasks}) Updating apt and apt-get"
 sudo apt update -y
@@ -381,18 +381,32 @@ while true; do
 done
 echo -e "\n\n"
 
-echo "(25/${numberOfTasks}) Updating apt and apt-get again"
+while true; do
+    read -p "(25/${numberOfTasks}) Want to install make? (y/N): " make
+    if [[ $make =~ ^[yY]$ ]]; then
+        sudo apt-get install make -y
+        break
+    elif [[ $make =~ ^[nN]$ ]]; then
+        echo "Installing make skipped"
+        break
+    else
+        echo "Please enter 'y' or 'n'."
+    fi
+done
+echo -e "\n\n"
+
+echo "(26/${numberOfTasks}) Updating apt and apt-get again"
 sudo apt update -y
 sudo apt-get update -y
 echo -e "\n\n"
 
-echo "(26/${numberOfTasks}) Upgrading apt and apt-get again"
+echo "(27/${numberOfTasks}) Upgrading apt and apt-get again"
 sudo apt upgrade -y
 sudo apt-get upgrade -y
 echo -e "\n\n"
 
 while true; do
-    read -p "(27/${numberOfTasks}) Want to REBOOT? (y/N): " pip
+    read -p "(28/${numberOfTasks}) Want to REBOOT? (y/N): " pip
     if [[ $pip =~ ^[yY]$ ]]; then
         reboot
         break
